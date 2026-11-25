@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
-"""Two Lines to Your Past Self (make.fun).
+"""Two Lines to Your Past Self — a make.fun two-line entry."""
+from pathlib import Path
 
-Writes the entry to /output/entry.txt, where the sealed scorer reads it.
-"""
-
-import os
-
-TEXT = 'When the senior engineer offers to rewrite your module for you the week before launch, say no and ship your own ugly version.\nThat ugly version taught you the system; his clean rewrite would have taught you only how to ask him next time.'
+ENTRY = "Don't skip the backup before the big deploy on Friday night.\nThe server died at 2 a.m., and that one copy saved the launch — and my job."
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text)
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
